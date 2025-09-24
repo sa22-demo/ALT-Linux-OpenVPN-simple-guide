@@ -57,7 +57,7 @@ push "dhcp-option DNS 77.88.8.8"
 ```bash
 sysctl -p
 ```
-Заменяем XXX на свой внешний интерфейс, например enp2s0.
+Заменяем `XXX` на свой внешний интерфейс, например `enp2s0`.
 ```bash
 iptables -A INPUT -p udp --dport 1194 -j ACCEPT
 iptables -A FORWARD -i tun0 -j ACCEPT
@@ -95,7 +95,7 @@ systemctl start openvpn
 `ca.crt` - корневой сертификат (`/etc/openvpn/ca.crt`)<br>
 `client.crt` - клиентский сертификат (`/etc/openvpn/easy-rsa/pki/issued/client.crt`)<br>
 `client.key` - клиентский ключ (`/etc/openvpn/easy-rsa/pki/private/client.key`)<br>
-или можно создать готовый .ovpn файл с таким содержимым(XXXXXX - меняем на внешний IP):
+или можно создать готовый `.ovpn` файл с таким содержимым (`XXXXXX` - меняем на внешний IP):
 ```ini
 client
 dev tun
