@@ -1,4 +1,4 @@
-# 1. Установка пакетов
+## 1. Установка пакетов
 ```bash
 apt-get update
 apt-get install openvpn easy-rsa
