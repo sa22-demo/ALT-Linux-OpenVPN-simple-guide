@@ -91,10 +91,10 @@ systemctl enable openvpn
 systemctl start openvpn
 ```
 ## 11. Подключение клиента
-При создании VPN подключения потребуются следующие файлы, находящиеся в этих местах:
-`ca.crt` - корневой сертификат (`/etc/openvpn/ca.crt`)
-`client.crt` - клиентский сертификат (`/etc/openvpn/easy-rsa/pki/issued/client.crt`)
-`client.key` - клиентский ключ (`/etc/openvpn/easy-rsa/pki/private/client.key`)
+При создании VPN подключения потребуются следующие файлы, находящиеся в этих местах:<br>
+`ca.crt` - корневой сертификат (`/etc/openvpn/ca.crt`)<br>
+`client.crt` - клиентский сертификат (`/etc/openvpn/easy-rsa/pki/issued/client.crt`)<br>
+`client.key` - клиентский ключ (`/etc/openvpn/easy-rsa/pki/private/client.key`)<br>
 или можно создать готовый .ovpn файл с таким содержимым:
 ```ini
 client
