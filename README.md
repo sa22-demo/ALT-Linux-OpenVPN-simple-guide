@@ -1,0 +1,1 @@
+# ALT-Linux-OpenVPN-simple-guide
