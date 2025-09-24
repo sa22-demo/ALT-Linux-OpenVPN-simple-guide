@@ -29,7 +29,7 @@ easyrsa sign-req client client
 ```bash
 easyrsa gen-dh
 ```
-## 7. Копирование файлов в нужные директории
+## 7. Копирование файлов в нужные директории(находимся в `/etc/openvpn/easy-rsa/`)
 ```bash
 cp pki/ca.crt pki/private/server.key pki/issued/server.crt pki/dh.pem /etc/openvpn/
 ```
@@ -89,4 +89,39 @@ systemctl enable openvpn
 Запустите сервер:
 ```bash
 systemctl start openvpn
+```
+## 11. Подключение клиента
+При создании VPN подключения потребуются следующие файлы, находящиеся в этих местах:
+`ca.crt` - корневой сертификат (`/etc/openvpn/ca.crt`)
+`client.crt` - клиентский сертификат (`/etc/openvpn/easy-rsa/pki/issued/client.crt`)
+`client.key` - клиентский ключ (`/etc/openvpn/easy-rsa/pki/private/client.key`)
+или можно создать готовый .ovpn файл с таким содержимым:
+```ini
+client
+dev tun
+proto udp
+remote ТВОЙ_IP_СЕРВЕРА 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+verb 3
+
+<ca>
+-----BEGIN CERTIFICATE-----
+[ВСТАВЬ СОДЕРЖИМОЕ ca.crt ЗДЕСЬ]
+-----END CERTIFICATE-----
+</ca>
+
+<cert>
+-----BEGIN CERTIFICATE-----
+[ВСТАВЬ СОДЕРЖИМОЕ client.crt ЗДЕСЬ]
+-----END CERTIFICATE-----
+</cert>
+
+<key>
+-----BEGIN PRIVATE KEY-----
+[ВСТАВЬ СОДЕРЖИМОЕ client.key ЗДЕСЬ]
+-----END PRIVATE KEY-----
+</key>
 ```
