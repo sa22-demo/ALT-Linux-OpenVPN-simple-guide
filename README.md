@@ -95,12 +95,12 @@ systemctl start openvpn
 `ca.crt` - корневой сертификат (`/etc/openvpn/ca.crt`)<br>
 `client.crt` - клиентский сертификат (`/etc/openvpn/easy-rsa/pki/issued/client.crt`)<br>
 `client.key` - клиентский ключ (`/etc/openvpn/easy-rsa/pki/private/client.key`)<br>
-или можно создать готовый .ovpn файл с таким содержимым:
+или можно создать готовый .ovpn файл с таким содержимым(XXXXXX - меняем на внешний IP):
 ```ini
 client
 dev tun
 proto udp
-remote ТВОЙ_IP_СЕРВЕРА 1194
+remote XXXXXX 1194
 resolv-retry infinite
 nobind
 persist-key
