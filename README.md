@@ -1,38 +1,39 @@
 ## 1. Установка пакетов
 ```bash
+su -
 apt-get update
 apt-get install openvpn easy-rsa
 ```
-# 2. Подготовка инфраструктуры ключей
+## 2. Подготовка инфраструктуры ключей
 ```bash
 mkdir /etc/openvpn/easy-rsa
 cp -r /usr/share/easyrsa3/* /etc/openvpn/easy-rsa/
 cd /etc/openvpn/easy-rsa
 easyrsa init-pki
 ```
-# 3. Генерация корневого сертификата (CA)
+## 3. Генерация корневого сертификата (CA)
 ```bash
 easyrsa build-ca
 ```
-# 4. Генерация серверных сертификатов
+## 4. Генерация серверных сертификатов
 ```bash
 easyrsa gen-req server nopass
 easyrsa sign-req server server
 ```
-# 5. Генерация клиентских сертификатов
+## 5. Генерация клиентских сертификатов
 ```bash
 easyrsa gen-req client nopass
 easyrsa sign-req client client
 ```
-# 6. Генерация Diffie-Hellman параметров
+## 6. Генерация Diffie-Hellman параметров
 ```bash
 easyrsa gen-dh
 ```
-# 7. Копирование файлов в нужные директории
+## 7. Копирование файлов в нужные директории
 ```bash
 cp pki/ca.crt pki/private/server.key pki/issued/server.crt pki/dh.pem /etc/openvpn/
 ```
-# 8. Базовая конфигурация сервера
+## 8. Базовая конфигурация сервера
 Создайте /etc/openvpn/server.conf со следующим содержимым:
 ```ini
 port 1194
@@ -51,8 +52,8 @@ verb 3
 push "redirect-gateway def1 bypass-dhcp"
 push "dhcp-option DNS 77.88.8.8"
 ```
-# 9. Включение форвардинга и настройка фаервола
-Правим `net.ipv4.ip_forward=1` в `/etc/net/sysctl.conf`. Потом:
+## 9. Включение форвардинга и настройка фаервола
+Правим `net.ipv4.ip_forward=1` в `/etc/net/sysctl.conf`, применяем:
 ```bash
 sysctl -p
 ```
@@ -67,7 +68,7 @@ iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o XXX -j MASQUERADE
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 ```
-# 10. Запуск службы
+## 10. Запуск службы
 Для запуска сервера используется скрипт `/etc/openvpn/openvpn-startup`. Впишите в него указание для `openvpn` запускать сервер с конфигурации `server.conf` в фоне:
 ```bash
 openvpn /etc/openvpn/server.conf &
